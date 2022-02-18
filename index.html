@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AudioWorklet Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="script.js" defer></script>
+  </head>  
+  <body>
+    <h1>AudioWorklet Demo</h1>
+    
+   <!-- <p>
+      This page is a demo for the <code>AudioWorklet</code> API,
+      which lets you process audio in the background using a worklet.
+    </p> -->
+
+    <p>
+      This demo was created to demonstrate that the AudioWorklet doesn't seemed to get terminated as expected even though the <code>process</code> method has returned <code>false</code> and all the audio nodes created have been disconnected.<br>
+
+    </p>
+
+    <p>
+      Clicking on the "Generate 4 seconds hiss sound" let you create a  hiss sound that last 4 seconds using the <code>AudioWorklet</code> API. The <code>process</code> method of the <code>AudioWorkletProcessor</code> will return <code>false</code> after 4 seconds of sound generated, letting the system know that the processing is done and it can be terminated. Clicking on the "Clean Up" button will : <br/>
+      <ol>
+      <li>  close the port on the AudioWorkletNode created to generate the hiss sound</li>
+      <li>   disconnect all the AudioNodes created during the demo to generate the hiss sound</li>
+       <li>   close the audio context created</li>
+      </ol>
+
+
+      After Clicking on the "Clean Up" button, if you open the Chrome memory profiler, you will that the AudioWorkletProcessor is still running. From my understanding, it should be cleaned up by the GC.
+    </p>
+    <br/>
+<p>
+    This demo was adapted from the <a href="https://github.com/mdn/webaudio-examples/tree/master/audioworklet">audio worklet demo</a> from <a href="https://github.com/mdn/webaudio-examples">Webaudio-examples</a>
+      </p>
+    <br/>
+    
+    <!--<button id="toggle">
+      Toggle Sound
+    </button> -->
+
+    <button id="startDemo">
+      Generate 4 seconds hiss sound
+    </button>
+
+    <button id="endDemo" disabled>
+      Clean Up
+    </button>
+    
+    <div class="control-box">
+      <div class="control">
+        <span class="control-label"><label for="osc-gain">Oscillator gain:</label></span>
+        <input type="range" id="osc-gain" name="osc-gain" min="0.0" max="1.0" step="0.05" value="0.1">
+      </div>
+      
+      <div class="control">
+        <span class="control-label"><label for="hiss-gain">Hiss gain:</label></span>
+        <input type="range" id="hiss-gain" name="hiss-gain" min="0.0" max="1.0" step="0.05" value="0.2">
+      </div>
+    </div>
+
+  </body>
+</html>
